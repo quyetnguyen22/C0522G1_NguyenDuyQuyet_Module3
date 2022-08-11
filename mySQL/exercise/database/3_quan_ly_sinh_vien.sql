@@ -74,8 +74,13 @@ select*from subjects
 where credit between 3 and 5;
 
 -- update student set student_name = 'Tho' where class_id = 2;
--- update student set class_id = 2 where student_name = 'Hung';
+set sql_safe_updates=0;
+update student set class_id = 2 where student_name = 'Hung';
 
 select s.student_name, sub.sub_name, m.mark 
-from student s join subjects sub join mark m on sub.sub_id = m.sub_id
+from student s 
+join subjects sub 
+join mark m 
+on sub.sub_id = m.sub_id
+on s.student_id = m.student_id
 order by mark desc, student_name;
