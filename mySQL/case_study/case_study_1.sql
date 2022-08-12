@@ -266,5 +266,69 @@ select k.ma_khach_hang, k.ho_ten, lk.ten_loai_khach, hd.ma_hop_dong, hd.ngay_lam
  from dich_vu dv
  join loai_dich_vu ldv on dv.ma_loai_dich_vu = ldv.ma_loai_dich_vu
  join hop_dong hd on dv.ma_dich_vu = hd.ma_dich_vu
- where  hd.ma_dich_vu is null;
+ where hd.ma_dich_vu 
+ not in 
+ (select hd.ma_dich_vu 
+ from hop_dong hd 
+ where hd.ngay_lam_hop_dong between '2021-01-01' and '2021-03-31')
+ group by dv.ma_dich_vu;
  
+ select dv.ma_dich_vu, dv.ten_dich_vu, dv.dien_tich, dv.so_nguoi_toi_da, dv.chi_phi_thue, dv.ten_dich_vu 
+ from dich_vu dv 
+ join hop_dong hd on hd.ma_dich_vu = dv.ma_dich_vu
+ where year(hd.ngay_lam_hop_dong) = '2020' and hd.ma_dich_vu
+ not in (
+ select hd.ma_dich_vu
+ from hop_dong hd
+ where year(hd.ngay_lam_hop_dong) = '2021')
+ group by hd.ma_dich_vu;
+ 
+ select distinct k.ho_ten 
+ from khach_hang k;
+ 
+ select k.ho_ten
+ from khach_hang k
+ union
+ select k.ho_ten
+ from khach_hang k;
+ 
+ select k.ho_ten
+ from khach_hang k
+group by k.ho_ten;
+
+select month(hd.ngay_lam_hop_dong) as thang, 
+count(hd.ma_khach_hang) as so_luong_khach_hang
+from hop_dong hd
+where year(hd.ngay_lam_hop_dong)='2021'
+group by month(hd.ngay_lam_hop_dong)
+order by thang;
+
+select hd.ma_hop_dong, hd.ngay_lam_hop_dong, hd.ngay_ket_thuc, hd.tien_dat_coc,
+sum(ifnull(hdct.so_luong,0)) as so_luong_dvdk
+from hop_dong hd
+left join hop_dong_chi_tiet hdct on hd.ma_hop_dong = hdct.ma_hop_dong
+left join dich_vu_di_kem dvdk on hdct.ma_dich_vu_di_kem = dvdk.ma_dich_vu_di_kem
+group by hd.ma_hop_dong
+order by ma_hop_dong;
+
+select dvdk.ma_dich_vu_di_kem, dvdk.ten_dich_vu_di_kem
+from dich_vu_di_kem dvdk
+join hop_dong_chi_tiet hdct on dvdk.ma_dich_vu_di_kem = hdct.ma_dich_vu_di_kem
+join hop_dong hd on hdct.ma_hop_dong = hd.ma_hop_dong
+join khach_hang k on hd.ma_khach_hang = k.ma_khach_hang
+join loai_khach lk on k.ma_loai_khach = lk.ma_loai_khach
+where lk.ten_loai_khach = 'Diamond' and (k.dia_chi like '% Vinh' or k.dia_chi like '% Quảng Ngãi');
+
+select hd.ma_hop_dong, nv.ho_ten as nhan_vien, k.ho_ten as khach_hang, k.so_dien_thoai,
+ dv.ten_dich_vu, count(hdct.so_luong) as so_luong_dich_vu_di_kem, hd.tien_dat_coc
+from khach_hang k
+left join hop_dong hd on k.ma_khach_hang = hd.ma_khach_hang
+left join dich_vu dv on hd.ma_dich_vu = dv.ma_dich_vu
+left join nhan_vien nv on hd.ma_nhan_vien = nv.ma_nhan_vien
+left join hop_dong_chi_tiet hdct on hd.ma_hop_dong = hdct.ma_hop_dong
+-- where dv.ma_dich_vu between '2020-10-31' and '2020-12-31'
+-- and dv.ma_dich_vu not in(
+-- select hd.ma_dich_vu
+-- from hop_dong hd 
+-- where hd.ma_dich_vu between '01-01-2021' and '01-06-2021')
+;
