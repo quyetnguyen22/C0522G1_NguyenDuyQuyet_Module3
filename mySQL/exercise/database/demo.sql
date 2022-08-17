@@ -31,9 +31,11 @@ alter table products add index i_produc_name_price(product_name, product_price);
 create view v_code_name_price_status 
 as select p.product_code, p.product_name, p.product_price, p.product_status
 from products p;
+
 create or replace view v_code_name_price_status as
 select p.product_code, p.product_name, p.product_price, p.product_amount
 from products p;
+
 set sql_safe_updates = 0;
 update v_code_name_price_status
 set product_amount = 5
@@ -52,8 +54,8 @@ end //
 delimiter ;
 
 delimiter //
-
-create procedure add_infor()
+create procedure add_infor(in product_code varchar(45) ,product_name varchar(50),product_price double,
+product_amount double,product_description varchar(60),product_status varchar(60))
 begin
 insert into products(product_code,product_name,product_price,product_amount,product_description,product_status) values
 ('IPhone', 'IP-14', 38000000,70,'Official','New');
@@ -61,7 +63,7 @@ end //
 delimiter ;
 
 delimiter //
-create procedure edit_infor()
+create procedure edit_infor(in e_price int)
 begin
 update products 
 set product_price = 42000000
@@ -70,7 +72,7 @@ end //
 delimiter ;
 
 delimiter //
-create procedure edit_infor()
+create procedure delete_infor(in del_product_name int)
 begin
 delete from products 
 where product_name = 'Vina Milk';
