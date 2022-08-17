@@ -1,15 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    .menu {
+        background-color: forestgreen;
+        color: white;
+        border: 1px solid #d4d4d4;
+        list-style-type: none;
+        padding: 2px;
+        cursor: pointer;
+        width: 180px;
+        float: bottom;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    #content_1 {
+        padding: 10px;
+        margin: 0 250px;
+        text-align: justify;
+    }
+
+    #content_2 {
+        padding: 10px;
+        margin: 0 250px;
+        text-align: justify;
+    }
+
+    #content_3 {
+        padding: 10px;
+        margin: 0 250px;
+        text-align: justify;
+    }
+
+    @media (max-width: 600px) {
+        #menu_right {
+            padding: 10px;
+            width: 180px;
+            bottom: 0;
+            top: 0;
+            right: 0;
+            position: absolute;
+        }
+    }
+
+    @media (max-width: 800px) {
+        #menu_right {
+            width: auto;
+            position: relative;
+        }
+        .menu {
+            width: auto;
+            position: relative;
+        }
+    }
+
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h1>Truyện Cười Ha ha ha</h1>
-<ol>
-    <li>Chỉ một màn</li>
-    <li>Bố cháu ở đâu?</li>
-    <li>Cực độc...</li>
-</ol>
+<div>
+    <div id="top">
+        <h1>Truyện Cười Ha ha ha</h1>
+    </div>
+    <div id="menu_right">
+        <ol>
+            <a href="#content_1">
+                <li class="menu">Chỉ một màn</li>
+            </a>
+            <a href="#content_2">
+                <li class="menu">Bố cháu ở đâu?</li>
+            </a>
+            <a href="#content_3">
+                <li class="menu">Cực độc...</li>
+            </a>
+        </ol>
+    </div>
+    <div id="content_1">
+        <pre>Chỉ một màn
+        Tháng Ba 15, 2022
+        Hai người bạn đi dạo với nhau. Một anh bảo
+
+        – Tối qua, tôi đến nhà hát xem kịch. Nhưng chỉ xem đến màn một rồi ra khỏi rạp.
+
+        – Tại sao?
+
+        – Tại vì, trên chương trình có nói: “Màn hai… 3 năm sau”. Anh xem thời gian dài như thế, tôi đợi làm sao được?
+            </pre>
+    </div>
+    <div id="content_2">
+        <pre>Bố cháu ở đâu?
+        Tháng Ba 15, 2022
+
+
+        Một cậu bé vô tình làm đổ cái xe chở ngô. Người hàng xóm nghe thấy tiếng động liền bảo: “Này, Willis, không sao đâu. Sang đây ăn cơm với bác rồi lát nữa bác lật lại xe cho”.
+
+        “Bác thật là tốt”, Willis trả lời. “Nhưng mà cháu sợ bố cháu không thích”.
+
+        “Vớ vẩn, sang đây”, người hàng xóm cào cuột. “Thôi được”, cậu bé nhận lời, “nhưng mà thể nào bố cháu cũng ghét”.
+
+        Sau bữa cơm thân mật, Willis cám ơn người hàng xóm tốt bụng và nói: “Cháu cảm thấy thoải mái hơn rất nhiều rồi. Nhưng mà cháu biết bố cháu sẽ bực lắm”.
+
+        “Đồ ngốc”, người hàng xóm mỉm cười. “Thế bố cháu đang ở đâu?”
+
+        “Dưới cái xe ạ”.
+            </pre>
+    </div>
+    <div id="content_3">
+        <pre>
+            Cực độc..
+        Tháng Ba 15, 2022
+
+
+        Hai con rắn độc đang bò. Một con quay lại hỏi con kia:
+        – Tụi mình là rắn độc phải không?
+
+        – Đúng vậy, rất độc.
+
+        Con thứ nhất lại hỏi: Tụi mình có đúng là rắn độc thiệt không?
+
+        – Thật vậy, chúng ta là rắn độc. Chúng ta là loài rắn cực độc trên thế gian này. À mà sao mày hỏi hoài vậy?
+
+        – Tao mới cắn phải lưỡi tao mày ạ.
+
+        - Thấy lo quá mày ạ.
+        </pre>
+    </div>
+</div>
+
+
 </body>
 </html>
