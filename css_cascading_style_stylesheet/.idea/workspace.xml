@@ -20,11 +20,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ccb9759-2c5a-463e-b001-6a5e827d6ee0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../practice/font.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../practice/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mySQL/case_study/case_study_1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../mySQL/case_study/case_study_1.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mySQL/case_study/furama_1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../mySQL/case_study/furama_1.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mySQL/exercise/database/demo.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../mySQL/exercise/database/demo.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/.idea/css_cascading_style_stylesheet.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/cssHtml.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/cssToHtml.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/formarText.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/story_index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet/test.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../practice/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../practice/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../practice/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../practice/.idea/prctice.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../practice/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../practice/font.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../practice/index.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,8 +67,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../exercise/css_cascading_style_stylesheet" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../web_layout" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -68,7 +83,9 @@
       <updated>1660703162335</updated>
       <workItem from="1660703163584" duration="13196000" />
       <workItem from="1660728426425" duration="2335000" />
-      <workItem from="1660735996197" duration="84000" />
+      <workItem from="1660736084089" duration="7179000" />
+      <workItem from="1660786894973" duration="95000" />
+      <workItem from="1660789018157" duration="42000" />
     </task>
     <servers />
   </component>
@@ -88,9 +105,17 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="957" y="183" key="FileChooserDialogImpl" timestamp="1660736079026">
+    <state x="957" y="183" key="FileChooserDialogImpl" timestamp="1660789058848">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="957" y="183" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1660736079026" />
+    <state x="957" y="183" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1660789058848" />
+    <state x="277" y="62" key="SettingsEditor" timestamp="1660736108643">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="277" y="62" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1660736108643" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1660744909546">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1660744909546" />
   </component>
 </project>

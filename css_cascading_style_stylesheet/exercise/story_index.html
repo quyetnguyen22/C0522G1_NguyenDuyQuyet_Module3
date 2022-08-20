@@ -1,59 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-    .menu {
-        background-color: forestgreen;
-        color: white;
-        border: 1px solid #d4d4d4;
+    * {
+        box-sizing: border-box;
+    }
+    .menu::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    [class*="col-"] {
+        float: left;
+        padding: 15px;
+    }
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+    html {
+        font-family: "Lucida Sans", sans-serif;
+    }
+    .header {
+        background-color: #9933cc;
+        color: #ffffff;
+        padding: 15px;
+    }
+    .menu ol {
         list-style-type: none;
-        padding: 2px;
-        cursor: pointer;
-        width: 180px;
-        float: bottom;
+        margin: 0;
+        padding: 0;
+    }
+    .menu li {
+        padding: 8px;
+        margin-bottom: 7px;
+        background-color: #33b5e5;
+        color: #ffffff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+    .menu li:hover {
+        background-color: #0099cc;
     }
 
     a {
         text-decoration: none;
-    }
-
-    #content_1 {
-        padding: 10px;
-        margin: 0 250px;
-        text-align: justify;
-    }
-
-    #content_2 {
-        padding: 10px;
-        margin: 0 250px;
-        text-align: justify;
-    }
-
-    #content_3 {
-        padding: 10px;
-        margin: 0 250px;
-        text-align: justify;
-    }
-
-    @media (max-width: 600px) {
-        #menu_right {
-            padding: 10px;
-            width: 180px;
-            bottom: 0;
-            top: 0;
-            right: 0;
-            position: absolute;
-        }
-    }
-
-    @media (max-width: 800px) {
-        #menu_right {
-            width: auto;
-            position: relative;
-        }
-        .menu {
-            width: auto;
-            position: relative;
-        }
     }
 
 </style>
@@ -63,23 +60,23 @@
 </head>
 <body>
 <div>
-    <div id="top">
+    <div class="header">
         <h1>Truyện Cười Ha ha ha</h1>
     </div>
-    <div id="menu_right">
+    <div class="col-3 menu">
         <ol>
             <a href="#content_1">
-                <li class="menu">Chỉ một màn</li>
+                <li>Chỉ một màn</li>
             </a>
             <a href="#content_2">
-                <li class="menu">Bố cháu ở đâu?</li>
+                <li>Bố cháu ở đâu?</li>
             </a>
             <a href="#content_3">
-                <li class="menu">Cực độc...</li>
+                <li>Cực độc...</li>
             </a>
         </ol>
     </div>
-    <div id="content_1">
+    <div class="col-9" id="content_1">
         <pre>Chỉ một màn
         Tháng Ba 15, 2022
         Hai người bạn đi dạo với nhau. Một anh bảo
@@ -91,7 +88,7 @@
         – Tại vì, trên chương trình có nói: “Màn hai… 3 năm sau”. Anh xem thời gian dài như thế, tôi đợi làm sao được?
             </pre>
     </div>
-    <div id="content_2">
+    <div class="col-9" id="content_2">
         <pre>Bố cháu ở đâu?
         Tháng Ba 15, 2022
 
@@ -109,7 +106,7 @@
         “Dưới cái xe ạ”.
             </pre>
     </div>
-    <div id="content_3">
+    <div class="col-9" id="content_3">
         <pre>
             Cực độc..
         Tháng Ba 15, 2022
