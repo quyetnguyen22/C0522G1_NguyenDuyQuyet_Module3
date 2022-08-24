@@ -5,11 +5,10 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "calculatorServlet", urlPatterns = {"/calculator"})
+@WebServlet(name = "calculatorServlet", urlPatterns = {"","/calculator"})
 public class CalculatorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
     }
 
@@ -33,9 +32,7 @@ public class CalculatorServlet extends HttpServlet {
                 result = firstNum / secondNum;
                 break;
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/result.jsp");
-        request.setAttribute("firstNum", firstNum);
-        request.setAttribute("secondNum", secondNum);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/calculator.jsp");
         request.setAttribute("result", result);
         requestDispatcher.forward(request, response);
     }
