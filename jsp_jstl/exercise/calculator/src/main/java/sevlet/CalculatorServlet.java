@@ -16,23 +16,23 @@ public class CalculatorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         double firstNum = Double.parseDouble(request.getParameter("firstNum"));
         double secondNum = Double.parseDouble(request.getParameter("secondNum"));
-        String operator = String.valueOf(request.getParameter("Operand").charAt(0));
+        char operator = request.getParameter("Operand").charAt(0);
         double result = 0;
         switch (operator) {
-            case "+":
+            case '+':
                 result = firstNum + secondNum;
                 break;
-            case "-":
+            case '-':
                 result = firstNum - secondNum;
                 break;
-            case "*":
+            case '*':
                 result = firstNum * secondNum;
                 break;
-            case "/":
+            case '/':
                 result = firstNum / secondNum;
                 break;
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/calculator.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/calculator.jsp");
         request.setAttribute("result", result);
         requestDispatcher.forward(request, response);
     }

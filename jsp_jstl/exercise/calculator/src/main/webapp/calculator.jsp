@@ -15,7 +15,7 @@
 <h1>Simple Calculator</h1>
 <fieldset>
     <legend>Calculator</legend>
-    <form action="/result.jsp" method="post">
+    <form action="/view/result.jsp" method="post">
         <label for="firstOperand">First Operand:</label>
         <input type="number" name="firstNum" placeholder="input the first number" id="firstOperand">
         <br>
