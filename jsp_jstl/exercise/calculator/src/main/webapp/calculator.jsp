@@ -15,16 +15,16 @@
 <h1>Simple Calculator</h1>
 <fieldset>
     <legend>Calculator</legend>
-    <form action="/view/result.jsp" method="post">
+    <form action="/calculator" method="post">
         <label for="firstOperand">First Operand:</label>
         <input type="number" name="firstNum" placeholder="input the first number" id="firstOperand">
         <br>
-        <label for="operand">Operand:</label>
-        <select name="Operand" id="operand">
-            <option value="+">+</option>
-            <option value="-">-</option>
-            <option value="*">*</option>
-            <option value="/">/</option>
+        <label for="Operand">Operand:</label>
+        <select name="operand" id="Operand">
+            <option value="+">Addition(+)</option>
+            <option value="-">Subtraction(-)</option>
+            <option value="*">Multiplication(*)</option>
+            <option value="/">Division(/)</option>
         </select>
         <br>
         <label for="secondOperand">First Operand:</label>
@@ -33,6 +33,5 @@
         <button type="submit">Calculator</button>
     </form>
 </fieldset>
-
 </body>
 </html>

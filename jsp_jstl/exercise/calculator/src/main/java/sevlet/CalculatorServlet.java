@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "calculatorServlet", urlPatterns = {"","/calculator"})
+@WebServlet(name = "calculatorServlet", urlPatterns = "/calculator")
 public class CalculatorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -16,7 +16,7 @@ public class CalculatorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         double firstNum = Double.parseDouble(request.getParameter("firstNum"));
         double secondNum = Double.parseDouble(request.getParameter("secondNum"));
-        char operator = request.getParameter("Operand").charAt(0);
+        char operator = request.getParameter("operand").charAt(0);
         double result = 0;
         switch (operator) {
             case '+':
@@ -32,7 +32,7 @@ public class CalculatorServlet extends HttpServlet {
                 result = firstNum / secondNum;
                 break;
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/calculator.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/result.jsp");
         request.setAttribute("result", result);
         requestDispatcher.forward(request, response);
     }
