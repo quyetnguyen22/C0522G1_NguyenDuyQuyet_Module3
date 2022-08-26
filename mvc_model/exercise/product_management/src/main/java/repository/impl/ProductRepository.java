@@ -11,9 +11,9 @@ public class ProductRepository implements IProductRepository {
 
     static {
         productList = new ArrayList<>();
-        productList.add(new Product(1,"Son Hce",20.,"son dưỡng","chanel"));
-        productList.add(new Product(2,"Maybach S650",200000.,"Full nội thất","Mec"));
-        productList.add(new Product(3,"Đồng Hồ Rolex",2000.,"cơ","rolex"));
+        productList.add(new Product(1, "Son Hce", 20., "son dưỡng", "chanel"));
+        productList.add(new Product(2, "Maybach S650", 200000., "Full nội thất", "Mec"));
+        productList.add(new Product(3, "Đồng Hồ Rolex", 2000., "cơ", "rolex"));
     }
 
     @Override
@@ -27,22 +27,30 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public void update() {
+    public void update(int id) {
 
     }
 
     @Override
-    public void delete() {
-
+    public void delete(int id) {
+        productList.remove(id);
     }
 
     @Override
-    public List<Product> showById(int id) {
-        return null;
+    public Product showById(int id) {
+        return productList.get(id - 1);
     }
 
     @Override
     public List<Product> showByName(String name) {
-        return null;
+        List<Product> findList = new ArrayList<>();
+        for (Product product : productList) {
+            if (product.getName().contains(name))
+                findList.add(product);
+//            else {
+//                findList = productList;
+//            }
+        }
+        return findList;
     }
 }

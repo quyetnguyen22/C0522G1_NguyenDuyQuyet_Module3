@@ -8,6 +8,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "ProductServlet", value = "/product")
 public class ProductServlet extends HttpServlet {
@@ -27,10 +29,10 @@ public class ProductServlet extends HttpServlet {
             case "showAll":
                 showAllProduct(request, response);
                 break;
-            case "showByID":
-                showByID(request,response);
+            case "showById":
+                showById(request,response);
                 break;
-            case "showByName":
+            case "search":
                 showByName(request,response);
                 break;
             case "delete":
@@ -41,14 +43,26 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) {
-
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/product/productList.jsp");
+        int id = Integer.parseInt(request.getParameter("id"));
     }
 
     private void showByName(HttpServletRequest request, HttpServletResponse response) {
-
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/product/productList.jsp");
+        String name = request.getParameter("productName");
+//        List<Product> productList = iProductService.showByName(name);
+        request.setAttribute("showAll", iProductService.showByName(name));
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void showByID(HttpServletRequest request, HttpServletResponse response) {
+    private void showById(HttpServletRequest request, HttpServletResponse response) {
+
 
     }
 

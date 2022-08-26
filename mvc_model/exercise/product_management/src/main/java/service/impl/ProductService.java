@@ -1,5 +1,4 @@
 package service.impl;
-
 import model.Product;
 import repository.IProductRepository;
 import repository.impl.ProductRepository;
@@ -22,22 +21,22 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void update() {
-
+    public void update(int id) {
+        iProductRepository.update(id);
     }
 
     @Override
-    public void delete() {
-
+    public void delete(int id) {
+        iProductRepository.delete(id);
     }
 
     @Override
-    public List<Product> showById(int id) {
-        return null;
+    public Product showById(int id) {
+        return iProductRepository.showById(id);
     }
 
     @Override
     public List<Product> showByName(String name) {
-        return null;
+        return iProductRepository.showByName(name);
     }
 }

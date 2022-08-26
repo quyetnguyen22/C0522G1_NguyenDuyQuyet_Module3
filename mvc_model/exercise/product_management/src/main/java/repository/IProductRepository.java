@@ -1,5 +1,4 @@
 package repository;
-
 import model.Product;
 
 import java.util.List;
@@ -13,8 +12,8 @@ import java.util.List;
 public interface IProductRepository {
     List<Product> showAll();
     void add(Product product);
-    void update();
-    void delete();
-    List<Product> showById(int id);
+    void update(int id);
+    void delete(int id);
+    Product showById(int id);
     List<Product> showByName(String name);
 }

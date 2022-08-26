@@ -14,6 +14,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body>
+<%--<a href="/product?action=showById">Search Product</a>--%>
+<form >
+    <input type="text" name="productName">
+    <input name="action" type="submit" value="search">
+</form>
+
 <h1>Danh Sách Sản Phẩm</h1>
 <%--id, tên sản phẩm, giá sản phẩm, mô tả của sản phẩm, nhà sản xuất--%>
 <table class="table table-striped">
@@ -35,9 +41,12 @@
             <td>${product.getDescription()}</td>
             <td>${product.getProducer()}</td>
             <td><button class="btn btn-primary btn-sm"><a class="text-white text-decoration-none" href="">Update</a></button></td>
-            <td><button class="btn btn-danger btn-sm"><a class="text-white text-decoration-none" href="">Delete</a></button></td>
+            <td><button class="btn btn-danger btn-sm"><a class="text-white text-decoration-none" href="/product?action=delete&id=${product.getId()}">Delete</a></button></td>
         </tr>
     </c:forEach>
 </table>
+<br>
+<a href="/product?action=add">Add New Product</a>
+
 </body>
 </html>

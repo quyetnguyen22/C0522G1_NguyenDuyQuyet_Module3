@@ -15,7 +15,5 @@
 </head>
 <body>
 <a href="/product?action=showAll">Show All Product</a>
-<br>
-<a href="/product?action=add">Add New Product</a>
 </body>
 </html>

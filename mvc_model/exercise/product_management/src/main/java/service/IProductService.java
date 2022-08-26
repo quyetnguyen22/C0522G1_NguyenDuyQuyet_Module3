@@ -8,8 +8,8 @@ public interface IProductService {
 
     List<Product> showAll();
     void add(Product product);
-    void update();
-    void delete();
-    List<Product> showById(int id);
+    void update(int id);
+    void delete(int id);
+    Product showById(int id);
     List<Product> showByName(String name);
 }
