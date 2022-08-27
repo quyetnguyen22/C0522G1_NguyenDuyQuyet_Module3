@@ -11,7 +11,7 @@ import java.util.List;
 //Tìm kiếm sản phẩm theo tên
 public interface IProductRepository {
     List<Product> showAll();
-    void add(Product product);
+    void save(Product product);
     void update(int id);
     void delete(int id);
     Product showById(int id);

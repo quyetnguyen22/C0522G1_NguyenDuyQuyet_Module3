@@ -15,12 +15,13 @@
 </head>
 <body>
 <%--<a href="/product?action=showById">Search Product</a>--%>
-<form >
+<form class="mt-2">
+    <h5>Search Product</h5>
     <input type="text" name="productName">
     <input name="action" type="submit" value="search">
 </form>
 
-<h1>Danh Sách Sản Phẩm</h1>
+<h1 class="text-center">List Products</h1>
 <%--id, tên sản phẩm, giá sản phẩm, mô tả của sản phẩm, nhà sản xuất--%>
 <table class="table table-striped">
     <tr>
@@ -40,9 +41,27 @@
             <td>${product.getPrice()}</td>
             <td>${product.getDescription()}</td>
             <td>${product.getProducer()}</td>
-            <td><button class="btn btn-primary btn-sm"><a class="text-white text-decoration-none" href="">Update</a></button></td>
-            <td><button class="btn btn-danger btn-sm"><a class="text-white text-decoration-none" href="/product?action=delete&id=${product.getId()}">Delete</a></button></td>
+            <td><button class="btn btn-primary btn-sm"><a class="text-white text-decoration-none" href="/product?action=update&id=${product.getId()}">Update</a></button></td>
+            <td><button class="text-white btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button></td>
         </tr>
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure that you want to delete?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger"><a class="text-decoration-none text-white" href="/product?action=delete&id=${product.getId()}">Yes</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </c:forEach>
 </table>
 <br>

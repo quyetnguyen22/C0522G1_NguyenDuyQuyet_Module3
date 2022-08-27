@@ -30,27 +30,58 @@ public class ProductServlet extends HttpServlet {
                 showAllProduct(request, response);
                 break;
             case "showById":
-                showById(request,response);
+                showById(request, response);
                 break;
             case "search":
-                showByName(request,response);
+                showByName(request, response);
                 break;
             case "delete":
-                deleteProduct(request,response);
+                deleteProduct(request, response);
+                break;
+            case "update":
+                formUpdate(request, response);
+                break;
             default:
-                homeProduct(request,response);
+                homeProduct(request, response);
+        }
+    }
+
+    private void formUpdate(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/product/update.jsp");
+        int id = Integer.parseInt(request.getParameter("id"));
+        Product product = iProductService.showById(id);
+        request.setAttribute("product", product);
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void deleteProduct(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/product/productList.jsp");
+//        RequestDispatcher requestDispatcher;
         int id = Integer.parseInt(request.getParameter("id"));
+//        Product product = iProductService.showById(id);
+//        if (product == null) {
+//            requestDispatcher = request.getRequestDispatcher("view/product/error.jsp");
+//        } else {
+//            request.setAttribute("productId", product);
+//
+//        }
+//        requestDispatcher.forward(request,response);
+        iProductService.delete(id);
+        try {
+            response.sendRedirect("/product?action=showAll");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showByName(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/product/productList.jsp");
         String name = request.getParameter("productName");
-//        List<Product> productList = iProductService.showByName(name);
         request.setAttribute("showAll", iProductService.showByName(name));
         try {
             requestDispatcher.forward(request, response);
@@ -62,8 +93,16 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showById(HttpServletRequest request, HttpServletResponse response) {
-
-
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/product/productList.jsp");
+        int id = Integer.parseInt(request.getParameter("id"));
+        request.setAttribute("productList", iProductService.showById(id));
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAllProduct(HttpServletRequest request, HttpServletResponse response) {
@@ -108,10 +147,10 @@ public class ProductServlet extends HttpServlet {
         }
         switch (action) {
             case "add":
-                formSave(request, response);
+                add(request, response);
                 break;
             case "update":
-                update(request,response);
+                update(request, response);
                 break;
             default:
                 homeProduct(request, response);
@@ -119,17 +158,24 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) {
-
-    }
-
-    private void formSave(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         double price = Double.parseDouble(request.getParameter("price"));
         String description = request.getParameter("desc");
         String producer = request.getParameter("producer");
-        iProductService.add(new Product(id, name, price, description, producer));
+        iProductService.save(new Product(id, name, price, description, producer));
+        request.setAttribute("mess", "Update successfully!");
+        showAllProduct(request, response);
+    }
+
+    private void add(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        double price = Double.parseDouble(request.getParameter("price"));
+        String description = request.getParameter("desc");
+        String producer = request.getParameter("producer");
+        iProductService.save(new Product(id, name, price, description, producer));
         request.setAttribute("mess", "Add successfully!");
-        formAdd(request,response);
+        formUpdate(request, response);
     }
 }

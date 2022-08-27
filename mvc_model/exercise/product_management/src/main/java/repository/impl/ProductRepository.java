@@ -22,8 +22,13 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public void add(Product product) {
-        productList.add(product);
+    public void save(Product product) {
+        int id = product.getId();
+        if (id == 0) {
+//            id = product.getId() + 1;
+            productList.add(product);
+        }
+
     }
 
     @Override
@@ -47,9 +52,6 @@ public class ProductRepository implements IProductRepository {
         for (Product product : productList) {
             if (product.getName().contains(name))
                 findList.add(product);
-//            else {
-//                findList = productList;
-//            }
         }
         return findList;
     }
