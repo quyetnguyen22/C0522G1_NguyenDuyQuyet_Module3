@@ -17,6 +17,11 @@ iUserRepository.insertUser(user);
     }
 
     @Override
+    public List<User> showByCountry(String country) {
+        return iUserRepository.showByCountry(country);
+    }
+
+    @Override
     public User selectUser(int id) {
         return iUserRepository.selectUser(id);
     }
@@ -34,5 +39,10 @@ iUserRepository.insertUser(user);
     @Override
     public boolean updateUser(User user) {
         return iUserRepository.updateUser(user);
+    }
+
+    @Override
+    public List<User> orderByName() {
+        return iUserRepository.orderByName();
     }
 }

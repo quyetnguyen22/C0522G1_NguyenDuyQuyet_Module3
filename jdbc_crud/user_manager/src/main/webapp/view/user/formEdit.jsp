@@ -11,6 +11,19 @@
     <title>Title</title>
 </head>
 <body>
-<h2>edit</h2>
+<a href="/UserList">Back Home</a>
+
+<form action="/UserList?action=edit" method="post" class="font-family-monospace">
+    <fieldset>
+        <legend>Create New User</legend>
+        <pre>Name:          <input type="text" name="name"> </pre>
+        <pre>Email :        <input type="number" name="email"></pre>
+        <pre>Country:   <input type="text" name="country"> </pre>
+        <pre>               <button type="submit">Save</button></pre>
+    </fieldset>
+</form>
+<c:if test="mess == null">
+    <p>${mess}</p>
+</c:if>
 </body>
 </html>

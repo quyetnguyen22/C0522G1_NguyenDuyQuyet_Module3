@@ -1,5 +1,6 @@
 package controller;
 
+import model.User;
 import service.IUserService;
 import service.impl.UserService;
 
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "UserServlet", value = "/UserList")
+@WebServlet(name = "UserServlet", urlPatterns ={"","/UserList"})
 public class UserServlet extends HttpServlet {
 
     private IUserService iUserService = new UserService();
@@ -24,34 +25,64 @@ public class UserServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
-                formCreate(request, request);
+                getFormCreate(request, response);
                 break;
             case "edit":
-                formEdit(request, response);
+                getFormEdit(request, response);
                 break;
             case "delete":
-                formDelete(request, response);
+                getFormDelete(request, response);
+                break;
+            case "search":
+                showByCountry(request, response);
+                break;
+            case "order":
+                orderByName(request, response);
                 break;
             default:
-                listUser(request, response);
+                getListUser(request, response);
         }
     }
 
-    private void formCreate(HttpServletRequest request, HttpServletRequest request1) {
+    private void orderByName(HttpServletRequest request, HttpServletResponse response) {
+        iUserService.orderByName();
+    }
 
+    private void showByCountry(HttpServletRequest request, HttpServletResponse response) {
+        String country = request.getParameter("searchInfo");
+        iUserService.showByCountry(country);
+    }
+
+    private void getFormCreate(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/formCreate.jsp");
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    private void formEdit(HttpServletRequest request, HttpServletResponse response) {
-
+    private void getFormEdit(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/formEdit.jsp");
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    private void formDelete(HttpServletRequest request, HttpServletResponse response) {
-
+    private void getFormDelete(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        iUserService.deleteUser(id);
     }
 
-    private void listUser(HttpServletRequest request, HttpServletResponse response) {
+    private void getListUser(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/listUser.jsp");
         try {
             request.setAttribute("user", iUserService.selectAllUsers());
@@ -82,12 +113,18 @@ public class UserServlet extends HttpServlet {
     }
 
     private void createNewUser(HttpServletRequest request, HttpServletResponse response) {
-
-
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String country = request.getParameter("country");
+        User user = new User(id, name, email, country);
+        iUserService.insertUser(user);
+        request.setAttribute("mess", "Insert successfully!");
     }
 
     private void editUser(HttpServletRequest request, HttpServletResponse response) {
-
-
+        int id = Integer.parseInt(request.getParameter("id"));
+        User user = iUserService.selectUser(id);
+        iUserService.updateUser(user);
     }
 }

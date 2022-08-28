@@ -15,9 +15,11 @@ public class UserRepository implements IUserRepository {
 
     private final String INSERT_USERS_SQL = "insert into users (name, email, country) VALUES (?, ?, ?);";
     private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =?;";
+    private static final String SELECT_USER_BY_COUNTRY = "select id,name,email,country from users where country =?;";
     private static final String SELECT_ALL_USERS = "select * from users;";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
+    private static final String ORDER_BY_NAME = "update users set name = ?,email= ?, country =? where id = ?;";
 
     @Override
     public void insertUser(User user) {
@@ -55,6 +57,28 @@ public class UserRepository implements IUserRepository {
             e.printStackTrace();
         }
         return user;
+    }
+
+    @Override
+    public List<User> showByCountry(String country) {
+        List<User> users = new ArrayList<>();
+        Connection connection = ConnectDataRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_COUNTRY);
+            preparedStatement.setString(1,country);
+            System.out.println(preparedStatement);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+               int id = resultSet.getInt("id");
+               String name = resultSet.getString("name");
+               String email = resultSet.getString("email");
+               users.add(new User(id, name, email));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
     }
 
     @Override
@@ -105,5 +129,26 @@ public class UserRepository implements IUserRepository {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public List<User> orderByName() {
+        List<User> users = new ArrayList<>();
+        Connection connection = ConnectDataRepository.getConnectDB();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(ORDER_BY_NAME);
+            System.out.println(preparedStatement);
+            ResultSet resultSet =preparedStatement.executeQuery();
+            while(resultSet.next()){
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+                String country = resultSet.getString("country");
+                users.add(new User(id, name, email, country));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 }

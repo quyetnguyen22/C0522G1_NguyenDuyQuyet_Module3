@@ -17,12 +17,15 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<h3>List User</h3>
 
+<input type="text" name="searchInfo">
+<button type="submit" name="action" value="search">Search</button>
+
+<h3>List User</h3>
 <table>
     <tr>
         <th>Series</th>
-        <th>Name</th>
+        <th><a class="text-decoration-none" href="/UserList?action=order">Name</a></th>
         <th>Email</th>
         <th>Country</th>
     </tr>
@@ -33,7 +36,7 @@
             <td>${user.getEmail()}</td>
             <td>${user.getCountry()}</td>
             <td>
-                <button><a href="/users?action=edit&id=${user.getId()}">Edit</a></button>
+                <button><a href="/UserList?action=edit&id=${user.getId()}">Edit</a></button>
             </td>
             <td>
                 <button class="text-white btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -54,7 +57,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-danger"><a class="text-decoration-none text-white"
-                                                                        href="/user?action=delete&id=${user.getId()}">Yes</a>
+                                                                        href="/UserList?action=delete&id=${user.getId()}">Yes</a>
                         </button>
                     </div>
                 </div>
@@ -63,8 +66,11 @@
     </c:forEach>
 </table>
 
-<button type="button" class="btn btn-primary"><a class="text-white text-decoration-none" href="/product?action=add">Add
-    New Product</a></button>
+<button type="button" class="btn btn-primary"><a class="text-white text-decoration-none" href="/UserList?action=create">Create
+    New User</a></button>
+
+<%--<button type="button" class="btn btn-primary"><a class="text-white text-decoration-none" href="/UserList?action=order">Order--%>
+<%--    New User</a></button>--%>
 
 </body>
 </html>
