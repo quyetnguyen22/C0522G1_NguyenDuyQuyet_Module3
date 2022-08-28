@@ -17,7 +17,7 @@
 <form action="/UserList?action=create" method="post" class="font-family-monospace">
     <fieldset>
         <legend>Create New User</legend>
-        <pre>ID:            <input type="text" name="id"/></pre>
+<%--        <pre>ID:            <input type="text" name="id"/></pre>--%>
         <pre>Name:          <input type="text" name="name"> </pre>
         <pre>Email :        <input type="number" name="email"></pre>
         <pre>Country:   <input type="text" name="country"> </pre>

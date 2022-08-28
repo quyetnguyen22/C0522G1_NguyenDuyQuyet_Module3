@@ -19,7 +19,7 @@ public class UserRepository implements IUserRepository {
     private static final String SELECT_ALL_USERS = "select * from users;";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
-    private static final String ORDER_BY_NAME = "update users set name = ?,email= ?, country =? where id = ?;";
+    private static final String ORDER_BY_NAME = "select * from users order by users.name;";
 
     @Override
     public void insertUser(User user) {
@@ -125,6 +125,7 @@ public class UserRepository implements IUserRepository {
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getCountry());
             preparedStatement.setInt(4, user.getId());
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
