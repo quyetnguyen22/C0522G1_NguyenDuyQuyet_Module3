@@ -4,22 +4,19 @@ import model.User;
 import repository.IUserRepository;
 import repository.impl.ConnectDataRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository implements IUserRepository {
 
     private final String INSERT_USERS_SQL = "insert into users (name, email, country) VALUES (?, ?, ?);";
-    private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =?;";
-    private static final String SELECT_USER_BY_COUNTRY = "select id,name,email,country from users where country =?;";
-    private static final String SELECT_ALL_USERS = "select * from users;";
-    private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
-    private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
-    private static final String ORDER_BY_NAME = "select * from users order by users.name;";
+    private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =? and is_deleted = 1;";
+    private static final String SELECT_USER_BY_COUNTRY = "select id,name,email,country from users where country =? and is_deleted = 1;";
+    private static final String SELECT_ALL_USERS = "call show_all_user();";
+    private static final String DELETE_USERS_SQL = "call delete_user(?);";
+    private static final String UPDATE_USERS_SQL = "call update_user(?, ?, ?, ?)";
+    private static final String ORDER_BY_NAME = "select * from users where and is_deleted = 1 order by users.name desc;";
 
     @Override
     public void insertUser(User user) {
@@ -27,12 +24,17 @@ public class UserRepository implements IUserRepository {
         Connection connection = ConnectDataRepository.getConnectDB();
         PreparedStatement preparedStatement;
         try {
+            connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(INSERT_USERS_SQL);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getCountry());
-            System.out.print(preparedStatement);
-            preparedStatement.executeUpdate();
+            int execute = preparedStatement.executeUpdate();
+            if (execute <= 0) {
+                connection.rollback();
+            }
+            connection.commit();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -86,9 +88,9 @@ public class UserRepository implements IUserRepository {
         List<User> users = new ArrayList<>();
         Connection connection = ConnectDataRepository.getConnectDB();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);
-            System.out.println(preparedStatement);
-            ResultSet rs = preparedStatement.executeQuery();
+            CallableStatement callableStatement = connection.prepareCall(SELECT_ALL_USERS);
+            System.out.println(callableStatement);
+            ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -107,9 +109,14 @@ public class UserRepository implements IUserRepository {
         boolean rowDelete = false;
         Connection connection = ConnectDataRepository.getConnectDB();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USERS_SQL);
-            preparedStatement.setInt(1,id);
-            rowDelete = preparedStatement.executeUpdate()>0;
+            connection.setAutoCommit(false);
+            CallableStatement callableStatement = connection.prepareCall(DELETE_USERS_SQL);
+            callableStatement.setInt(1,id);
+            rowDelete = callableStatement.executeUpdate()>0;
+            if (!rowDelete) {
+                connection.rollback();
+            }
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -120,11 +127,13 @@ public class UserRepository implements IUserRepository {
     public boolean updateUser(User user) {
         Connection connection = ConnectDataRepository.getConnectDB();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USERS_SQL);
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, user.getCountry());
-            preparedStatement.setInt(4, user.getId());
+            CallableStatement callableStatement = connection.prepareCall(UPDATE_USERS_SQL);
+            callableStatement.setInt(1, user.getId());
+            callableStatement.setString(2, user.getName());
+            callableStatement.setString(3, user.getEmail());
+            callableStatement.setString(4, user.getCountry());
+
+            callableStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

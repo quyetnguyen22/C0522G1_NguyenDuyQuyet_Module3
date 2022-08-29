@@ -17,17 +17,19 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
+<form >
 <input type="text" name="searchInfo">
-<button type="submit" name="action" value="search">Search</button>
-
+<input type="submit" name="action" value="search">
+</form>
 <h3>List User</h3>
-<table>
+<table class="table table-striped">
     <tr>
         <th>Series</th>
-        <th><a class="text-decoration-none" href="/UserList?action=order">Name</a></th>
+        <th><a class="text-decoration-none" href="/users?action=order">Name</a></th>
         <th>Email</th>
         <th>Country</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     <c:forEach varStatus="serises" var="user" items="${user}">
         <tr>
@@ -36,41 +38,46 @@
             <td>${user.getEmail()}</td>
             <td>${user.getCountry()}</td>
             <td>
-                <button><a href="/UserList?action=edit&id=${user.getId()}">Edit</a></button>
+                <button class="text-white btn btn-primary btn-sm"><a class="text-decoration-none text-white" href="/users?action=edit&id=${user.getId()}">Edit</a></button>
             </td>
             <td>
-                <button class="text-white btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <button onclick="idDelete('${user.getId()}', '${user.getName()}')" class="text-white btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
                     Delete
                 </button>
             </td>
         </tr>
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure that you want to delete ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger"><a class="text-decoration-none text-white"
-                                                                        href="/UserList?action=delete&id=${user.getId()}">Yes</a>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </c:forEach>
 </table>
 
-<button type="button" class="btn btn-primary"><a class="text-white text-decoration-none" href="/UserList?action=create">Create
+<form>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input hidden type="text" name="id" id="idDelete">
+                <p>Are you sure that you want to delete <span style="color: red" id="nameDelete"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button name="action" value="delete" type="submit" class="btn btn-danger">Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<button type="button" class="btn btn-primary"><a class="text-white text-decoration-none" href="/users?action=create">Create
     New User</a></button>
 
-<%--<button type="button" class="btn btn-primary"><a class="text-white text-decoration-none" href="/UserList?action=order">Order--%>
-<%--    New User</a></button>--%>
-
+<script>
+    function idDelete(idDel, name) {
+        document.getElementById("idDelete").value = idDel;
+        document.getElementById("nameDelete").innerHTML = name;
+    }
+</script>
 </body>
 </html>

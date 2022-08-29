@@ -4,21 +4,18 @@ import model.User;
 import service.IUserService;
 import service.impl.UserService;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "UserServlet", urlPatterns ={"","/UserList"})
+@WebServlet(name = "UserServlet", value = "/users")
 public class UserServlet extends HttpServlet {
 
-    private IUserService iUserService = new UserService();
-
+    IUserService iUserService = new UserService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -31,7 +28,7 @@ public class UserServlet extends HttpServlet {
                 getFormEdit(request, response);
                 break;
             case "delete":
-                getFormDelete(request, response);
+                delete(request, response);
                 break;
             case "search":
                 showByCountry(request, response);
@@ -46,6 +43,7 @@ public class UserServlet extends HttpServlet {
 
     private void orderByName(HttpServletRequest request, HttpServletResponse response) {
         iUserService.orderByName();
+        getListUser(request, response);
     }
 
     private void showByCountry(HttpServletRequest request, HttpServletResponse response) {
@@ -67,6 +65,8 @@ public class UserServlet extends HttpServlet {
 
     private void getFormEdit(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/formEdit.jsp");
+        int id = Integer.parseInt(request.getParameter("id"));
+        request.setAttribute("id", id);
         try {
             requestDispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -77,9 +77,10 @@ public class UserServlet extends HttpServlet {
 
     }
 
-    private void getFormDelete(HttpServletRequest request, HttpServletResponse response) {
+    private void delete(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         iUserService.deleteUser(id);
+        getListUser(request, response);
     }
 
     private void getListUser(HttpServletRequest request, HttpServletResponse response) {
@@ -97,6 +98,7 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -113,18 +115,23 @@ public class UserServlet extends HttpServlet {
     }
 
     private void createNewUser(HttpServletRequest request, HttpServletResponse response) {
+//        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String country = request.getParameter("country");
+        User user = new User(name, email, country);
+        iUserService.insertUser(user);
+        request.setAttribute("mess", "Insert successfully!");
+        getFormCreate(request, response);
+    }
+
+    private void editUser(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
         User user = new User(id, name, email, country);
-        iUserService.insertUser(user);
-        request.setAttribute("mess", "Insert successfully!");
-    }
-
-    private void editUser(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        User user = iUserService.selectUser(id);
         iUserService.updateUser(user);
+        getListUser(request, response);
     }
 }

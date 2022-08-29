@@ -12,7 +12,8 @@
     <title>$Title$</title>
   </head>
   <body>
-<%--  <c:redirect url="/UserList">--%>
-<%--  </c:redirect>--%>
+  <c:redirect url="/users">
+
+  </c:redirect>
   </body>
 </html>
