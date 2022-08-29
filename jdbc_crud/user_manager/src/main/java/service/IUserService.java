@@ -15,7 +15,7 @@ public interface IUserService {
 
     boolean updateUser(User user);
 
-    List<User> showByCountry(String country);
+    List<User> showByElement(String country);
 
     List<User> orderByName();
 }

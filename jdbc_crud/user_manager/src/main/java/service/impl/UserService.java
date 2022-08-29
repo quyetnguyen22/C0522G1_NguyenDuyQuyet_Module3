@@ -17,8 +17,8 @@ iUserRepository.insertUser(user);
     }
 
     @Override
-    public List<User> showByCountry(String country) {
-        return iUserRepository.showByCountry(country);
+    public List<User> showByElement(String country) {
+        return iUserRepository.showByElement(country);
     }
 
     @Override

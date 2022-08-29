@@ -2,7 +2,6 @@ package repository.impl;
 
 import model.User;
 import repository.IUserRepository;
-import repository.impl.ConnectDataRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,12 +10,12 @@ import java.util.List;
 public class UserRepository implements IUserRepository {
 
     private final String INSERT_USERS_SQL = "insert into users (name, email, country) VALUES (?, ?, ?);";
-    private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =? and is_deleted = 1;";
-    private static final String SELECT_USER_BY_COUNTRY = "select id,name,email,country from users where country =? and is_deleted = 1;";
+    private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =? and is_deleted = 0;";
+    private static final String SELECT_USER_BY_ELEMENT = "select name,email,country from users where name =? or country =? or id =? and is_deleted = 0;";
     private static final String SELECT_ALL_USERS = "call show_all_user();";
     private static final String DELETE_USERS_SQL = "call delete_user(?);";
     private static final String UPDATE_USERS_SQL = "call update_user(?, ?, ?, ?)";
-    private static final String ORDER_BY_NAME = "select * from users where and is_deleted = 1 order by users.name desc;";
+    private static final String ORDER_BY_NAME = "select * from users where is_deleted = 0 order by users.name;";
 
     @Override
     public void insertUser(User user) {
@@ -62,19 +61,21 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public List<User> showByCountry(String country) {
+    public List<User> showByElement(String lookUp) {
         List<User> users = new ArrayList<>();
         Connection connection = ConnectDataRepository.getConnectDB();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_COUNTRY);
-            preparedStatement.setString(1,country);
-            System.out.println(preparedStatement);
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ELEMENT);
+            preparedStatement.setString(1,lookUp);
+            preparedStatement.setString(2,lookUp);
+            preparedStatement.setInt(3, Integer.parseInt(lookUp));
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
-               int id = resultSet.getInt("id");
+//               int id = resultSet.getInt("id");
                String name = resultSet.getString("name");
                String email = resultSet.getString("email");
-               users.add(new User(id, name, email));
+               String country = resultSet.getString("country");
+               users.add(new User(name, email, country));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -147,14 +148,13 @@ public class UserRepository implements IUserRepository {
         Connection connection = ConnectDataRepository.getConnectDB();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(ORDER_BY_NAME);
-            System.out.println(preparedStatement);
             ResultSet resultSet =preparedStatement.executeQuery();
             while(resultSet.next()){
-                int id = resultSet.getInt("id");
+//                int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String email = resultSet.getString("email");
                 String country = resultSet.getString("country");
-                users.add(new User(id, name, email, country));
+                users.add(new User(name, email, country));
             }
         } catch (SQLException e) {
             e.printStackTrace();

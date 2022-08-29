@@ -13,6 +13,7 @@ import java.io.IOException;
 public class UserServlet extends HttpServlet {
 
     IUserService iUserService = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -31,7 +32,7 @@ public class UserServlet extends HttpServlet {
                 delete(request, response);
                 break;
             case "search":
-                showByCountry(request, response);
+                showByElement(request, response);
                 break;
             case "order":
                 orderByName(request, response);
@@ -42,13 +43,28 @@ public class UserServlet extends HttpServlet {
     }
 
     private void orderByName(HttpServletRequest request, HttpServletResponse response) {
-        iUserService.orderByName();
-        getListUser(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/listUser.jsp");
+        request.setAttribute("user", iUserService.orderByName());
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void showByCountry(HttpServletRequest request, HttpServletResponse response) {
-        String country = request.getParameter("searchInfo");
-        iUserService.showByCountry(country);
+    private void showByElement(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/listUser.jsp");
+        String lookUp = request.getParameter("searchInfo");
+        request.setAttribute("user", iUserService.showByElement(lookUp));
+        try {
+            requestDispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getFormCreate(HttpServletRequest request, HttpServletResponse response) {

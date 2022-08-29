@@ -18,10 +18,10 @@
 </head>
 <body>
 <form >
-<input type="text" name="searchInfo">
-<input type="submit" name="action" value="search">
+    <input type="text" name="searchInfo">
+    <button type="submit" name="action" value="search">Search</button>
 </form>
-<h3>List User</h3>
+<h3 class="text-center">List Of Users</h3>
 <table class="table table-striped">
     <tr>
         <th>Series</th>
