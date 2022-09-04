@@ -4,6 +4,7 @@ use user_manager;
 
 create table users(
 id int(3) auto_increment,
+is_deleted bit default(0),
 `name` varchar(120) not null,
 email varchar(220) not null,
 country varchar(120),
@@ -13,13 +14,18 @@ primary key(id)
 insert into users(`name`,email,country)
 values 
 ('Minh','minh@codegym.vn','Viet Nam'),
-('Kante','kante@che.uk','Kenia');
+('Kante','kante@che.uk','Kenia'),
+('may','may@che.uk','Kia'),
+('biet','may@che.uk','tau'),
+('co','coe@che.uk','enia');
+
 
 delimiter //
 create procedure show_all_user()
 begin
 select *
-from users;
+from users 
+where is_deleted = 0;
 end //
 delimiter ;
 
@@ -35,7 +41,12 @@ delimiter ;
 delimiter //
 create procedure delete_user(in i_id int)
 begin
-delete from users
+update users
+set is_deleted = 1
 where id = i_id;
 end //
 delimiter ;
+
+SELECT * FROM users
+where is_deleted = 0
+order by name;

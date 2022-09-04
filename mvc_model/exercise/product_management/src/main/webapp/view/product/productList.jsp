@@ -42,28 +42,39 @@
             <td>${product.getDescription()}</td>
             <td>${product.getProducer()}</td>
             <td><button class="btn btn-primary btn-sm"><a class="text-white text-decoration-none" href="/product?action=update&id=${product.getId()}">Update</a></button></td>
-            <td><button class="text-white btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button></td>
+            <td><button onclick="idDelete('${product.getId()}','${product.getName()}')" class="text-white btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button></td>
         </tr>
     </c:forEach>
-    <!-- Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure that you want to delete?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger"><a class="text-decoration-none text-white" href="/product?action=delete&id=${product.getId()}">Yes</a></button>
-                </div>
+
+</table>
+<form>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input hidden type="text" name="id" id="idDelete">
+                <p>Are you sure that you want to delete <span style="color: red" id="nameDelete"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger" name="action" value="delete">Yes</button>
             </div>
         </div>
     </div>
-</table>
+</div>
+</form>
+
+<script>
+    function idDelete(idDel,nameDel) {
+        document.getElementById("idDelete").value = idDel;
+        document.getElementById("nameDelete").innerText = nameDel;
+    }
+</script>
 <br>
 <a href="/product?action=add">Add New Product</a>
 

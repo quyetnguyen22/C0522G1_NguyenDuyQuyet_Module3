@@ -17,7 +17,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<form >
+<form>
     <input type="text" name="searchInfo">
     <button type="submit" name="action" value="search">Search</button>
 </form>

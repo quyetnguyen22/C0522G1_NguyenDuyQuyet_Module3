@@ -56,8 +56,9 @@ public class UserServlet extends HttpServlet {
 
     private void showByElement(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/user/listUser.jsp");
-        String lookUp = request.getParameter("searchInfo");
-        request.setAttribute("user", iUserService.showByElement(lookUp));
+        String search = request.getParameter("searchInfo");
+        request.setAttribute("user", iUserService.showByElement(search));
+
         try {
             requestDispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -65,6 +66,7 @@ public class UserServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private void getFormCreate(HttpServletRequest request, HttpServletResponse response) {
